@@ -15,18 +15,20 @@
 
     var hourBlock = $('.time-block');
       hourBlock.each(function() {
-        var hourBlock = $(this).attr("id").split("-")[1];
-
-        if (currentTime == hourBlock) {
+        var hourBlock = parseInt($(this).attr("id").split("-")[1]); 
+        // parseInt takes a string and divides elements into an array of substrings
+        // which can then be used to grab the number hour of each id
+      
+      if (currentTime > hourBlock) {
+        $(this).removeClass("present");
+        $(this).removeClass("future")
+        $(this).addClass("past");
+      }
+        else if (currentTime == hourBlock) {
           $(this).addClass("present");
           $(this).removeClass("past");
           $(this).removeClass("future")
-        }
-        else if (currentTime > hourBlock) {
-          $(this).removeClass("present");
-          $(this).removeClass("future")
-          $(this).addClass("past");
-        }
+      }
         else if (currentTime < hourBlock) {
           $(this).removeClass("past");
           $(this).removeClass("present");
@@ -39,8 +41,8 @@
   time();
 
   // dayjs()hour() reads as 24 hour clock so 1PM = 13th hour
-  
-  // takes the value of whatever is int he description box and 
+  console.log(dayjs().hour());
+  // takes the value of whatever is in the description box and 
   // saves that into local storage 
 
     $("#hour-9 .description").val(localStorage.getItem("hour-9"));
